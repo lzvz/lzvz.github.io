@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Service Demo</title>
+</head>
+<body>
+    <h1>Web Service Demo</h1>
+    <form id="greetForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="Rekruto"><br>
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" value="Давай дружить!"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="response"></p>
+
+    <script>
+        const form = document.getElementById('greetForm');
+        const responseElement = document.getElementById('response');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+
+            // Make a GET request to your Flask server
+            const response = await fetch(`/api/greet?name=${name}&message=${message}`);
+            const data = await response.text();
+
+            // Display the response
+            responseElement.textContent = data;
+        });
+    </script>
+</body>
+</html>
